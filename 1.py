@@ -1,11 +1,15 @@
 import random
+import requests
+from bs4 import BeautifulSoup
 
 
 def name_and_age():
     name = input('What is your name?')
     age = input('What is your age?')
-    year100 = (2020-int(age)) + 100
+    year100 = (2020 - int(age)) + 100
     print('Hello, ' + name + ', you will turn 100 years old in the year ' + str(year100) + '.')
+
+
 # name_and_age()
 
 
@@ -25,6 +29,8 @@ def odd_or_even():
         print('the second number divides evenly into the first')
     else:
         print('the second number does not divide evenly into the first')
+
+
 # odd_or_even()
 
 
@@ -36,6 +42,8 @@ def less_than_5(list_input):
         else:
             pass
     print(under_5)
+
+
 # less_than_5([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
 
@@ -49,6 +57,8 @@ def divisor():
         else:
             pass
     print(divisor_list)
+
+
 # divisor()
 
 
@@ -57,6 +67,8 @@ def list_overlap():
     list2 = random.sample(range(0, 100), 20)
     overlap = [i for i in list1 if i in list2]
     print(overlap)
+
+
 # list_overlap()
 
 
@@ -64,6 +76,8 @@ def list_comprehension():
     a = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
     b = [i for i in a if i % 2 == 0]
     print(b)
+
+
 # list_comprehension()
 
 
@@ -110,6 +124,8 @@ def rock_paper_scissors():
             print('invalid input!')
             continue
     print('Thanks for playing!')
+
+
 # rock_paper_scissors()
 
 
@@ -139,6 +155,8 @@ def guessing_game_one():
             elif play_again.lower() == 'q':
                 print('Thanks for playing!')
                 break
+
+
 # guessing_game_one()
 
 
@@ -147,6 +165,8 @@ def list_overlap_comprehensions():
     b = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     c = [i for i in set(a) if i in b]
     print(c)
+
+
 # list_overlap_comprehensions()
 
 
@@ -163,6 +183,8 @@ def is_prime():
         print(num_input, 'is prime.')
     else:
         print(num_input, 'is not prime.')
+
+
 # is_prime()
 
 
@@ -180,6 +202,8 @@ def Fibonacci():
             fibonacci.append(fibonacci[-1] + fibonacci[-2])
             i = len(list(fibonacci))
         print(fibonacci)
+
+
 # Fibonacci()
 
 
@@ -193,12 +217,16 @@ def list_maker():
 def remove_duplicates():
     list1 = set(list_maker())
     print(list1)
+
+
 # remove_duplicates()
 
 
 def reverse_word_order(quote):
     quote = quote.split()
     print(' '.join(quote[::-1]))
+
+
 # reverse_word_order("Ferb, I know what we're going to do today!")
 
 
@@ -283,6 +311,8 @@ def password_generator():
         else:
             print('invalid input')
             continue
+
+
 # password_generator()
 
 
@@ -296,12 +326,58 @@ def decode_a_web_page():
 # decode_a_web_page()
 
 
+def cows_and_bulls():
+    print('cows = digit guessed correctly in the correct place\nbull = digit guessed correctly in the wrong place')
+    user_input = ''
+    running = True
+    random_int = str(random.randint(1000, 10000))
+    while running:
+        print(random_int)
+        cows = 0
+        bulls = 0
+        user_input = input('Guess the number: ')
+        if not user_input.isdigit():
+            print('invalid input')
+            continue
+        if len(user_input) != 4:
+            print('invalid input', '\n')
+            continue
+        for i in range(0, 4):
+            cow = False
+            if user_input[i] == random_int[i]:
+                cows += 1
+                cow = True
+            elif cow == False and user_input[i] in random_int:
+                bulls += 1
+        print('COWS:', cows, '\n' + 'BULLS:', str(bulls - 1) + "\n")
+        if cows == 4:
+            print('You got it! The number was ' + random_int + '.')
+            while True:
+                play_again = input('Enter \'y\' to play again or \'q\' to quit.')
+                if play_again.lower() == 'q':
+                    running = False
+                    break
+                elif play_again.lower() == 'y':
+                    random_int = str(random.randint(1000, 10000))
+                    break
+                else:
+                    print('invalid input')
+# cows_and_bulls()
 
 
+def decode_two():
+    url = "http://www.vanityfair.com/society/2014/06/monica-lewinsky-humiliation-culture"
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, 'html.parser')
+    article = soup.find_all('article', class_="article main-content")
+    for i in article:
+        return i.text
 
 
-
-
-
-
+def write_to_a_file(text):
+    name_of_file = input('Enter file name: ')
+    with open(str(name_of_file + '.txt'), 'w') as file:
+        file.write(text)
+        file.close()
+# write_to_a_file(decode_two())
 
